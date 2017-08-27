@@ -1,5 +1,5 @@
   // Initial array of movies
-  var animals = ["Aardvark", "Bear", "Giraffe", "Lion", "Monkey"];
+  var animals = ["Lion", "Tiger", "Bear"];
 
   // Function for dumping the JSON content for each button into the div
   function displayAnimalInfo() {
@@ -11,25 +11,20 @@
       url: queryURL,
       method: "GET"
     }).done(function(response) {
-        $("#animalGifs").empty();
-        console.log(response.data[0].images.fixed_height.url);
-
-        for( var i = 0; i < 11; i++){
-          var gifUrl = response.data[i].images.fixed_height.url;
-          var gifImage = $("<img>");
-
-          gifImage.attr("src", gifUrl);
-          gifImage.attr("alt", gifImage);
-
-          $("#animalGifs").append(gifImage);
-        }
-
+          $("#animalGifs").empty();
+          console.log(response.data[0].images.fixed_height.url);
+          for( var i = 0; i < 11; i++){
+              var gifUrl = response.data[i].images.fixed_height.url;
+              var gifImage = $("<img>");
+              gifImage.attr("src", gifUrl);
+              gifImage.attr("alt", gifImage);
+              $("#animalGifs").append(gifImage);
+          }
       renderButtons();
-
     });
   }
 
-  // Function for displaying movie data
+  // Function for displaying animal data
   function renderButtons() {
 
     // Deleting the buttons prior to adding new movies
@@ -62,7 +57,7 @@
     renderButtons();
   });
 
-  // Function for displaying the movie info
+  // Function for displaying the animal info
   // Using $(document).on instead of $(".movie").on to add event listenersto dynamically generated elements
   $(document).on("click", ".animal", displayAnimalInfo);
 
