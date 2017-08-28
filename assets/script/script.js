@@ -15,37 +15,51 @@
           console.log(response.data[0].images.fixed_height.url);
 
           for( var i = 0; i < 11; i++){
-              var gifUrl = response.data[i].images.fixed_height.url;
+              var gifUrl = response.data[i].images.original.url;
               var gifImage = $("<img>");
-              gifImage.attr("src", gifImageStill);
-              gifImage.attr("data-still", gifImageStill);
-              gifImage.attr("data-animate", gifUrl);
-              gifImage.attr("data-state", "still");
-              gifImage.addClass("gif");
-              gifImage.attr("alt", "gifImage");
+              var gifUrlStill = response.data[i].images.fixed_height_still.url;
+              var gifImageStill = $("<img>");
 
+              // gifImage.attr("src", gifUrl);
+              // gifImage.attr("data-still", gifImageStill);
+              // gifImage.attr("data-animate", gifUrl);
+              // gifImage.attr("data-state", "animate");
+              // gifImage.addClass("gif");
+              // gifImage.attr("alt", "gifImage");
 
+              gifImageStill.attr("src", gifUrlStill);
+              gifImageStill.attr("data-state", "still");
+              gifImageStill.attr("data-still", gifUrlStill);
+              gifImageStill.attr("data-animate", gifUrl);
+              gifImageStill.addClass("gif");
+              gifImageStill.attr("alt", "Gif Image Still");
 
               $("#animalGifs").append(gifImageStill);
 
+              console.log("Data: " + response);
               console.log(response.data[0].images);
+              console.log("Still: " + gifUrlStill);
+
+              $(".gif").on("click", function() {
+                  // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+                  var state = $(this).attr("data-state");
+                  // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+                  // Then, set the image's data-state to animate
+                  // Else set src to the data-still value
+                  if (state === "still") {
+                    $(this).attr("src", $(this).attr("data-animate"));
+                    $(this).attr("data-state", "animate");
+                  } else {
+                    $(this).attr("src", $(this).attr("data-still"));
+                    $(this).attr("data-state", "still");
+                  }
+                });
 
 //Rating append needs work
               // console.log(gifRating);
               // var gifRating = response.data[i].rating;
               // $("#animalGifs").prepend("Rating: " + gifRating);
 
-// Beginning still gif work
-              var gifUrlStill = response.data[i].images.fixed_height_still.url;
-              var gifImageStill = $("<img>");
-              gifImageStill.attr("src", gifUrlStill);
-              gifImageStill.attr("alt", "Gif Image Still");
-
-              console.log("Still: " + gifUrlStill);
-
-              // <img src="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-still="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-animate="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" data-state="still" class="gif">
-              // <img src="http://media2.giphy.com/media/8rFQp4kHXJ0gU/200_s.gif" data-still="http://media2.giphy.com/media/8rFQp4kHXJ0gU/200_s.gif" data-animate="http://media2.giphy.com/media/8rFQp4kHXJ0gU/200.gif" data-state="still" class="gif">
-              // <img src="http://media3.giphy.com/media/W6LbnBigDe4ZG/200_s.gif" data-still="http://media3.giphy.com/media/W6LbnBigDe4ZG/200_s.gif" data-animate="http://media3.giphy.com/media/W6LbnBigDe4ZG/200.gif" data-state="still" class="gif">
           }
       renderButtons();
     });
@@ -54,22 +68,20 @@
   // Function for displaying animal data
   function renderButtons() {
 
-    // Deleting the buttons prior to adding new movies
-    // (this is necessary otherwise you will have repeat buttons)
     $("#animalButtons").empty();
-    // Looping through the array of movies
-    for (var i = 0; i < animals.length; i++) {
-      // Then dynamicaly generating buttons for each animal in the array
-      var a = $("<button>");
-      // Adding a class of movie to our button
-      a.addClass("animal");
-      // Adding a data-attribute
-      a.attr("data-name", animals[i]);
-      // Providing the initial button text
-      a.text(animals[i]);
-      // Adding the button to the buttons-view div
-      $("#animalButtons").append(a);
-    }
+      // Looping through the array of movies
+      for (var i = 0; i < animals.length; i++) {
+        // Then dynamicaly generating buttons for each animal in the array
+        var a = $("<button>");
+        // Adding a class of movie to our button
+        a.addClass("animal");
+        // Adding a data-attribute
+        a.attr("data-name", animals[i]);
+        // Providing the initial button text
+        a.text(animals[i]);
+        // Adding the button to the buttons-view div
+        $("#animalButtons").append(a);
+      }
   }
 
   // This function handles events where one button is clicked
