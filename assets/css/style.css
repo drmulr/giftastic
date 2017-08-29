@@ -1,3 +1,6 @@
+body {
+  background-image: url("../images/topography.png");
+}
 .animal {
   width: 100px;
   margin: 5px;
@@ -12,7 +15,11 @@ img {
 #animals-form{
   float: right;
   border: 2px, black;
-  margin-right: 20px;
+  margin-right: 50px;
+  margin-top: 10px;
+  background: gray;
+  padding: 10px;
+  color: white;
 }
 #add-animal {
   font-weight: bold;
