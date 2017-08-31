@@ -17,13 +17,24 @@
               var gifImage = $("<img>");
               var gifUrlStill = response.data[i].images.original_still.url;
               var gifImageStill = $("<img>");
+
+
+              var gifRating = response.data[i].rating;
+              var rating = gifRating.toUpperCase();
+
+
+
               gifImageStill.attr("src", gifUrlStill);
               gifImageStill.attr("data-state", "still");
               gifImageStill.attr("data-still", gifUrlStill);
               gifImageStill.attr("data-animate", gifUrl);
               gifImageStill.addClass("gif");
               gifImageStill.attr("alt", "still gif");
+
+
+
               $("#animalGifs").append(gifImageStill);
+              $("#animalGifs").append("<p>Rating: " + rating + "</p>");
               //Rating append needs work
               // console.log(gifRating);
               // var gifRating = response.data[i].rating;
