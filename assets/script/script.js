@@ -13,16 +13,12 @@
       }).done(function(response) {
           $("#animalGifs").empty();
           for( var i = 0; i < 11; i++){
-              var gifUrl = response.data[i].images.original.url;
               var gifImage = $("<img>");
-              var gifUrlStill = response.data[i].images.original_still.url;
               var gifImageStill = $("<img>");
-
-
+              var gifUrl = response.data[i].images.original.url;
+              var gifUrlStill = response.data[i].images.original_still.url;
               var gifRating = response.data[i].rating;
               var rating = gifRating.toUpperCase();
-
-
 
               gifImageStill.attr("src", gifUrlStill);
               gifImageStill.attr("data-state", "still");
@@ -30,9 +26,9 @@
               gifImageStill.attr("data-animate", gifUrl);
               gifImageStill.addClass("gif");
               gifImageStill.attr("alt", "still gif");
-
-
-
+              // var ratingDiv = $("<div>");
+              // ratingDiv.addClass("ratingDivClass");
+              // ratingDiv.append("<p>Rating: " + rating + "</p>");
               $("#animalGifs").append(gifImageStill);
               $("#animalGifs").append("<p>Rating: " + rating + "</p>");
               //Rating append needs work
@@ -74,6 +70,7 @@
   // Function for displaying the animal info
   // Using $(document).on instead of $(".movie").on to add event listenersto dynamically generated elements
   $(document).on("click", ".animal", displayAnimalInfo);
+  
   $(document).on("click", ".gif", function() {
       // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
       var state = $(this).attr("data-state");
